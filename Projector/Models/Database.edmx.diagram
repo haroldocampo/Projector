@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4df2b5daa4d7445db2129cc1c7b449e8" Name="Diagram1">
+        <EntityTypeShape EntityType="ProjectorDatabaseModel.Person" Width="1.5" PointX="5.1969225896508071" PointY="0.58359915045257615" />
+        <EntityTypeShape EntityType="ProjectorDatabaseModel.ProjectAssignment" Width="1.5" PointX="4.6250745992293" PointY="9.7326615200064435" />
+        <EntityTypeShape EntityType="ProjectorDatabaseModel.Project" Width="1.5" PointX="0.42889803481702604" PointY="14.504230714637894" />
+        <AssociationConnector Association="ProjectorDatabaseModel.FK_Person_Assignment" />
+        <AssociationConnector Association="ProjectorDatabaseModel.FK_Project_Assignment" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

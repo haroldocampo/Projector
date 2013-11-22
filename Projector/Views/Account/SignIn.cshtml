@@ -1,0 +1,33 @@
+﻿@model Projector.Models.SignInModel
+@{
+    ViewBag.Title = "Sign In";
+    Layout = @"~\Views\Shared\_Layout.cshtml";
+}
+
+<h2>Sign In</h2>
+
+@Html.ValidationSummary()
+
+@using(Html.BeginForm()){
+<div>
+    <table class="form-table">
+        <tr>
+            <td>
+                @Html.Label("Username")
+            </td>
+            <td>
+                @Html.TextBoxFor(x=>x.Username)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Password")
+            </td>
+            <td>
+                @Html.TextBoxFor(x=>x.Password)
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="LOGIN" />
+</div>
+}

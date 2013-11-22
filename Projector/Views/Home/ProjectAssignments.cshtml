@@ -1,0 +1,23 @@
+﻿@model Projector.Models.ProjectAssignmentsViewModel
+@using Projector.Helpers
+@{
+    ViewBag.Title = "ProjectAssignments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Project Assignments - Smart Forms</h3>
+
+<div id="main-app">
+    <span>New Member: </span>
+    <select id="all-members">
+    
+    </select>
+    <input type="button" value="Assign Member" />
+
+    <div>Current Members: </div>
+    <table id="assignment-table">
+
+    </table>
+</div>
+
+<script src="@Url.Content("~/Scripts/assignments.js")"></script>

@@ -1,0 +1,32 @@
+﻿@model Projector.Models.CreateProjectViewModel
+@{
+    ViewBag.Title = "Create Project";
+    Layout = @"~\Views\Shared\_Layout.cshtml";
+}
+
+<h2>Create Project</h2>
+
+@Html.ValidationSummary()
+
+@using(Html.BeginForm()){
+<table class="form-table">
+    <tr>
+        <td>@Html.Label("Name")</td>
+        <td>@Html.TextBoxFor(x=>x.ProjectModel.Name)</td>
+    </tr>
+    <tr>
+        <td>@Html.Label("Code")</td>
+        <td>@Html.TextBoxFor(x=>x.ProjectModel.Code)</td>
+    </tr>
+    <tr>
+        <td>@Html.Label("Budget")</td>
+        <td>@Html.TextBoxFor(x=>x.ProjectModel.Budget)</td>
+    </tr>
+    <tr>
+        <td>@Html.Label("Remarks")</td>
+        <td>@Html.TextAreaFor(x=>x.ProjectModel.Remarks)</td>
+    </tr>
+</table>
+<input type="submit" value="Submit" />
+}
+<span class="message">@ViewBag.Message</span>

@@ -1,0 +1,32 @@
+﻿@model Projector.Models.CreatePersonViewModel
+@{
+    ViewBag.Title = "Create Person";
+    Layout = @"~\Views\Shared\_Layout.cshtml";
+}
+
+<h2>Create Project</h2>
+
+@Html.ValidationSummary()
+
+@using(Html.BeginForm()){
+<table class="form-table">
+    <tr>
+        <td>@Html.Label("Username")</td>
+        <td>@Html.TextBoxFor(x=>x.PersonModel.Username)</td>
+    </tr>
+    <tr>
+        <td>@Html.Label("Password")</td>
+        <td>@Html.PasswordFor(x=>x.PersonModel.Password)</td>
+    </tr>
+    <tr>
+        <td>@Html.Label("First Name")</td>
+        <td>@Html.TextBoxFor(x=>x.PersonModel.FirstName)</td>
+    </tr>
+    <tr>
+        <td>@Html.Label("Last Name")</td>
+        <td>@Html.TextBoxFor(x=>x.PersonModel.LastName)</td>
+    </tr>
+</table>
+<input type="submit" value="Submit" />
+}
+<span class="message">@ViewBag.Message</span>

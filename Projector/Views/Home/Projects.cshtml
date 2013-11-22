@@ -1,0 +1,33 @@
+﻿@model Projector.Models.ProjectsViewModel
+@{
+    ViewBag.Title = "Projects";
+    Layout = @"~\Views\Shared\_Layout.cshtml";
+}
+
+<div id="projects">
+    <table class="data-table">
+        <tr>
+            <th>PROJECT NAME</th>
+            <th>BUDGET</th>
+            <th>TASKS</th>
+        </tr>
+        @foreach (var project in Model.Projects) {
+        <tr>
+            <td>@project.Name</td>
+            <td>@project.Budget MD</td>
+            <td><a href="@Url.Action("ProjectAssignments", new { id=project.Id })">Assignments</a></td>
+        </tr>
+        }
+    </table>
+</div>
+<div id="tasks">
+    <ul>
+        <li>
+            <a href="@Url.Action("CreateProject", "Home")">Create a Project</a>
+        </li>
+        <li>
+            <a href="@Url.Action("CreatePerson", "Home")">Create a Person</a>
+        </li>
+    </ul>
+</div>
+<div class="clear"></div>

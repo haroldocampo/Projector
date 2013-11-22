@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ProjectorDatabaseModel.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="ProjectorDatabaseModelStoreContainer">
+          <EntitySet Name="Persons" EntityType="ProjectorDatabaseModel.Store.Persons" store:Type="Tables" />
+          <EntitySet Name="ProjectAssignments" EntityType="ProjectorDatabaseModel.Store.ProjectAssignments" store:Type="Tables" />
+          <EntitySet Name="Projects" EntityType="ProjectorDatabaseModel.Store.Projects" store:Type="Tables" />
+          <AssociationSet Name="FK_Person_Assignment" Association="ProjectorDatabaseModel.Store.FK_Person_Assignment">
+            <End Role="Persons" EntitySet="Persons" />
+            <End Role="ProjectAssignments" EntitySet="ProjectAssignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_Assignment" Association="ProjectorDatabaseModel.Store.FK_Project_Assignment">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="ProjectAssignments" EntitySet="ProjectAssignments" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Persons">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Username" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ProjectAssignments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PersonId" Type="int" Nullable="false" />
+          <Property Name="ProjectId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Projects">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
+          <Property Name="Budget" Type="float" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Person_Assignment">
+          <End Role="Persons" Type="ProjectorDatabaseModel.Store.Persons" Multiplicity="1" />
+          <End Role="ProjectAssignments" Type="ProjectorDatabaseModel.Store.ProjectAssignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persons">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjectAssignments">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_Assignment">
+          <End Role="Projects" Type="ProjectorDatabaseModel.Store.Projects" Multiplicity="1" />
+          <End Role="ProjectAssignments" Type="ProjectorDatabaseModel.Store.ProjectAssignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjectAssignments">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProjectorDatabaseModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ProjectorDatabaseEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Persons" EntityType="ProjectorDatabaseModel.Person" />
+          <EntitySet Name="ProjectAssignments" EntityType="ProjectorDatabaseModel.ProjectAssignment" />
+          <EntitySet Name="Projects" EntityType="ProjectorDatabaseModel.Project" />
+          <AssociationSet Name="FK_Person_Assignment" Association="ProjectorDatabaseModel.FK_Person_Assignment">
+            <End Role="Person" EntitySet="Persons" />
+            <End Role="ProjectAssignment" EntitySet="ProjectAssignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_Assignment" Association="ProjectorDatabaseModel.FK_Project_Assignment">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="ProjectAssignment" EntitySet="ProjectAssignments" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Username" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProjectAssignments" Relationship="ProjectorDatabaseModel.FK_Person_Assignment" FromRole="Person" ToRole="ProjectAssignment" />
+        </EntityType>
+        <EntityType Name="ProjectAssignment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="PersonId" Nullable="false" />
+          <Property Type="Int32" Name="ProjectId" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="ProjectorDatabaseModel.FK_Person_Assignment" FromRole="ProjectAssignment" ToRole="Person" />
+          <NavigationProperty Name="Project" Relationship="ProjectorDatabaseModel.FK_Project_Assignment" FromRole="ProjectAssignment" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Code" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Remarks" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Double" Name="Budget" Nullable="false" />
+          <NavigationProperty Name="ProjectAssignments" Relationship="ProjectorDatabaseModel.FK_Project_Assignment" FromRole="Project" ToRole="ProjectAssignment" />
+        </EntityType>
+        <Association Name="FK_Person_Assignment">
+          <End Type="ProjectorDatabaseModel.Person" Role="Person" Multiplicity="1" />
+          <End Type="ProjectorDatabaseModel.ProjectAssignment" Role="ProjectAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjectAssignment">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_Assignment">
+          <End Type="ProjectorDatabaseModel.Project" Role="Project" Multiplicity="1" />
+          <End Type="ProjectorDatabaseModel.ProjectAssignment" Role="ProjectAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjectAssignment">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProjectorDatabaseModelStoreContainer" CdmEntityContainer="ProjectorDatabaseEntities">
+          <EntitySetMapping Name="Persons">
+            <EntityTypeMapping TypeName="ProjectorDatabaseModel.Person">
+              <MappingFragment StoreEntitySet="Persons">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectAssignments">
+            <EntityTypeMapping TypeName="ProjectorDatabaseModel.ProjectAssignment">
+              <MappingFragment StoreEntitySet="ProjectAssignments">
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="ProjectorDatabaseModel.Project">
+              <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="Budget" ColumnName="Budget" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
