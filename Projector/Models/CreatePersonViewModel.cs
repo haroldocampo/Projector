@@ -23,12 +23,26 @@ namespace Projector.Models {
                 modelState.AddModelError("UsernameRequired", "Username is Required");
             }
 
-            if (!model.Username.IsEmail()) {
-                modelState.AddModelError("EmailRequired", "Username must be in email form");
-            }
-
             if (model.Password == "" || model.Password == null) {
                 modelState.AddModelError("PasswordRequired", "Password is Required");
+            }
+
+            if (model.FirstName == null || model.LastName == null || model.Password == null || model.Username == null) return;
+
+            if (!(model.Username.Length >= 2 && model.Username.Length <= 200)) {
+                modelState.AddModelError("UsernameLength", "Username must be more than 1 character and less than or equal to 200 characters");
+            }
+
+            if (!(model.FirstName.Length >= 2 && model.FirstName.Length <= 50)) {
+                modelState.AddModelError("FnameLength", "First Name must be more than 1 character and less than or equal to 50 characters");
+            }
+
+            if (!(model.LastName.Length >= 2 && model.LastName.Length <= 50)) {
+                modelState.AddModelError("LnameLength", "Last Name must be more than 1 character and less than or equal to 50 characters");
+            }
+
+            if (!model.Username.IsEmail()) {
+                modelState.AddModelError("EmailRequired", "Username must be in email form");
             }
 
             if (model.Password.Contains(' ')) {
