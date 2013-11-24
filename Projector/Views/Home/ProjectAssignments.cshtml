@@ -8,16 +8,35 @@
 <h3>Project Assignments - Smart Forms</h3>
 
 <div id="main-app">
-    <span>New Member: </span>
-    <select id="all-members">
-    
-    </select>
-    <input type="button" value="Assign Member" />
+    <div id="persons-view">
+        <span>New Member: </span>
+        <select data-bind="options: Persons,
+                            optionsText: function(item){
+                                return item.Name
+                            },
+                            value: SelectedPerson"></select>
+        <input type="button" data-bind="click: addAssignment" value="Assign Member" />
+    </div>
 
     <div>Current Members: </div>
     <table id="assignment-table">
-
+        <tbody id="assignment-data" class="form-table" data-bind="foreach: assignments">
+            <tr>
+                <td data-bind="text: PersonUsername"></td>
+                <td><input type="button" value="REMOVE" data-bind="click: $root.removeAssignment"/></td>
+            </tr>
+        </tbody>
     </table>
 </div>
-
 <script src="@Url.Content("~/Scripts/assignments.js")"></script>
+<script>
+    $(function () {
+        var model = {
+            modelAssignments: @Html.Raw(Model.Assignments.ToJson()),
+            modelPersons: @Html.Raw(Model.AllPersons.ToJson()),
+            modelProjectId: @Html.Raw(Model.ProjectId)
+            };
+        app = new App();
+        app.init(model);
+    });
+</script>

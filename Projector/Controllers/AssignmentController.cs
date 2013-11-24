@@ -27,12 +27,13 @@ namespace Projector.Controllers
         }
 
         // POST api/assignment
-        public void Post(AssignmentModel model) {
+        public ProjectAssignment Post(AssignmentModel model) {
             using (BasicDao context = new BasicDao()) {
                 ProjectAssignment newAssignment = new ProjectAssignment();
                 newAssignment.PersonId = model.PersonId;
                 newAssignment.ProjectId = model.ProjectId;
                 context.Insert(newAssignment);
+                return newAssignment;
             }
         }
 
